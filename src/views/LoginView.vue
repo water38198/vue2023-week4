@@ -10,6 +10,13 @@ const user = ref({
   password: ""
 });
 function login() {
+  if (user.value.username === "" || user.value.password === "") {
+    Swal.fire({
+      icon: "warning",
+      title: "請正確填寫資訊"
+    })
+    return
+  }
   axios.post(`${VITE_URL}/v2/admin/signin`, user.value)
     .then(res => {
       const { expired, token } = res.data;
@@ -36,7 +43,7 @@ function login() {
 <template>
   <main>
     <div class="flex justify-center items-center h-screen font-sans">
-      <form action="">
+      <form action="" ref="loginForm">
         <h1 class="text-center font-size-8 mb-8 font-medium">請先登入</h1>
         <div class="custom-input-group mb-4 position-relative">
           <input type="email" id="email" placeholder="Email address"

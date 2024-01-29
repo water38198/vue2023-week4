@@ -12,7 +12,7 @@ const dialog = ref();
 const temp = ref({});
 const isNew = ref(true);
 const pagination = ref({});
-function check() {
+function checkAdmin() {
     // 取出 token
     const token = document.cookie
         .split("; ")
@@ -63,7 +63,7 @@ function confirmProduct(product) {
     // 新增用 post ，修改用 put
     if (isNew.value) {
         axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/admin/product`, {
-            data: product.value
+            data: product
         }).then(res => {
             Swal.fire({
                 title: `${res.data.message}`,
@@ -76,9 +76,9 @@ function confirmProduct(product) {
             console.log(err)
         })
     } else {
-        const { id } = temp.value;
+        const { id } = product;
         axios.put(`${VITE_URL}/v2/api/${VITE_PATH}/admin/product/${id}`, {
-            data: temp.value
+            data: product
         })
             .then(res => {
                 Swal.fire({
@@ -118,7 +118,7 @@ function deleteProduct(product) {
     })
 }
 onMounted(() => {
-    check();
+    checkAdmin();
 })
 </script>
 <template>

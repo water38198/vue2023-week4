@@ -11,6 +11,7 @@ function addNewImages() {
     if (tempProduct.value.imagesUrl[tempProduct.value.imagesUrl.length - 1] === "") return
     tempProduct.value.imagesUrl.push("")
 }
+// 父層 temp 變動時，子層 tempProduct 跟著變動
 watch(() => props.temp, () => {
     tempProduct.value = props.temp
 })
@@ -73,11 +74,11 @@ watch(() => props.temp, () => {
                     <div class="input-group">
                         <label for="origin_price">原價</label>
                         <input type="number" id="origin_price" placeholder="請輸入原價" min="0"
-                            v-model="tempProduct.origin_price">
+                            v-model.number="tempProduct.origin_price">
                     </div>
                     <div class="input-group">
                         <label for="price">售價</label>
-                        <input type="number" id="price" placeholder="請輸入售價" min="0" v-model="tempProduct.price">
+                        <input type="number" id="price" placeholder="請輸入售價" min="0" v-model.number="tempProduct.price">
                     </div>
                     <div class="input-group col-span-2">
                         <label for="description">產品敘述</label>
@@ -101,7 +102,7 @@ watch(() => props.temp, () => {
                 @click="$emit('dialogClose')">取消</button>
             <button type="button"
                 class="m-1 px-3 py-1.5 text-white bg-#0d6efd border-0 rd hover:(cursor-pointer bg-#0b5ed7)"
-                @click="$emit('confirmProduct', temp)">確定</button>
+                @click="$emit('confirmProduct', tempProduct)">確定</button>
         </div>
     </form>
 </template>
