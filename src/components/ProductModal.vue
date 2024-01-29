@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, watch } from 'vue'
+import { ref, watch } from 'vue'
 const props = defineProps(['temp', 'isNew']);
 const tempProduct = ref(props.temp);
 function addNewImages() {
@@ -111,7 +111,6 @@ watch(() => props.temp, () => {
     label {
         @apply mb-2 block
     }
-
     input, textarea {
         --at-apply: w-100% rd border-1 border-solid px-3 py-1.5 font-size-4 focus:(outline-0 border-#86b7fe border-solid shadow-[0px_0px_0px_0.25rem_#C2DBFE])
     }

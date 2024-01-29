@@ -73,7 +73,12 @@ function confirmProduct(product) {
             temp.value = {};
             getProducts();
         }).catch(err => {
-            console.log(err)
+            Swal.fire({
+                icon: "error",
+                target: "dialog",
+                title: "錯誤發生",
+                text: `${err.response.data.message}`
+            })
         })
     } else {
         const { id } = product;
@@ -89,7 +94,12 @@ function confirmProduct(product) {
                 temp.value = {};
                 getProducts();
             }).catch(err => {
-                console.log(err)
+                Swal.fire({
+                    icon: "error",
+                    target: "dialog",
+                    title: "錯誤發生",
+                    text: `${err.response.data.message}`
+                })
             })
     }
 }
