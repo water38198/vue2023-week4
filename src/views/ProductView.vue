@@ -41,6 +41,7 @@ function getProducts(page = 1) {
         .then(res => {
             products.value = res.data.products;
             pagination.value = res.data.pagination;
+            console.log(products.value)
         })
 }
 function autoClose(e) {
@@ -71,7 +72,7 @@ function confirmProduct(product) {
             })
             dialog.value.close();
             temp.value = {};
-            getProducts();
+            getProducts(pagination.value.current_page || 1);
         }).catch(err => {
             Swal.fire({
                 icon: "error",
@@ -92,7 +93,7 @@ function confirmProduct(product) {
                 })
                 dialog.value.close();
                 temp.value = {};
-                getProducts();
+                getProducts(pagination.value.current_page || 1);
             }).catch(err => {
                 Swal.fire({
                     icon: "error",

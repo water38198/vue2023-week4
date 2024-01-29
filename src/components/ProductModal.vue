@@ -80,6 +80,26 @@ watch(() => props.temp, () => {
                         <label for="price">售價</label>
                         <input type="number" id="price" placeholder="請輸入售價" min="0" v-model.number="tempProduct.price">
                     </div>
+                    <div class="input-group">
+                        <label for="language">語言</label>
+                        <select name="" id="language">
+                            <option value="繁體中文">繁體中文</option>
+                            <option value="簡體中文">簡體中文</option>
+                            <option value="英文">英文</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="condition">狀況：</label>
+                        <select name="" id="condition">
+                            <option value="良好">良好</option>
+                            <option value="盒子損傷">盒子損傷</option>
+                            <option value="配件損傷">配件損傷</option>
+                            <option value="受潮">受潮</option>
+                            <option value="缺件">缺件</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
                     <div class="input-group col-span-2">
                         <label for="description">產品敘述</label>
                         <textarea name="" id="description" rows="4" v-model="tempProduct.description"></textarea>
@@ -111,7 +131,8 @@ watch(() => props.temp, () => {
     label {
         @apply mb-2 block
     }
-    input, textarea {
+
+    input, textarea, select {
         --at-apply: w-100% rd border-1 border-solid px-3 py-1.5 font-size-4 focus:(outline-0 border-#86b7fe border-solid shadow-[0px_0px_0px_0.25rem_#C2DBFE])
     }
 }
