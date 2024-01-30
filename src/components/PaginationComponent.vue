@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 const props = defineProps(["pages"]);
 const emit = defineEmits(['changePage']);
 function changePage(page) {

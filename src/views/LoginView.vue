@@ -10,6 +10,7 @@ const user = ref({
   password: ""
 });
 function login() {
+  // 如果有空則跳出警示
   if (user.value.username === "" || user.value.password === "") {
     Swal.fire({
       icon: "warning",
@@ -31,7 +32,6 @@ function login() {
         }
       })
     }).catch(err => {
-      console.log(err?.response.data)
       Swal.fire({
         title: "登入失敗",
         icon: "error",

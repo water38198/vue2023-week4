@@ -9,7 +9,7 @@ const { VITE_URL, VITE_PATH } = import.meta.env;
 const router = useRouter();
 const products = ref([]);
 const dialog = ref();
-const temp = ref({});
+const tempProduct = ref({});
 const isNew = ref(true);
 const pagination = ref({});
 function checkAdmin() {
@@ -41,7 +41,6 @@ function getProducts(page = 1) {
         .then(res => {
             products.value = res.data.products;
             pagination.value = res.data.pagination;
-            console.log(products.value)
         })
 }
 function autoClose(e) {
@@ -52,15 +51,16 @@ function autoClose(e) {
 }
 function addNewProduct() {
     dialog.value.showModal();
-    temp.value = {};
+    tempProduct.value = {};
     isNew.value = true
 }
 function editProduct(product) {
-    temp.value = JSON.parse(JSON.stringify(product));
+    tempProduct.value = JSON.parse(JSON.stringify(product));
     isNew.value = false
     dialog.value.showModal();
 }
 function confirmProduct(product) {
+    console.log(product)
     // 新增用 post ，修改用 put
     if (isNew.value) {
         axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/admin/product`, {
@@ -71,7 +71,7 @@ function confirmProduct(product) {
                 icon: "success"
             })
             dialog.value.close();
-            temp.value = {};
+            tempProduct.value = {};
             getProducts(pagination.value.current_page || 1);
         }).catch(err => {
             Swal.fire({
@@ -92,7 +92,7 @@ function confirmProduct(product) {
                     icon: "success",
                 })
                 dialog.value.close();
-                temp.value = {};
+                tempProduct.value = {};
                 getProducts(pagination.value.current_page || 1);
             }).catch(err => {
                 Swal.fire({
@@ -192,10 +192,13 @@ onMounted(() => {
     </div>
     <!-- Modal -->
     <dialog ref="dialog" class="max-w-1140px w-100% border-0 rd p-0 backdrop:backdrop-blur-3" @click="autoClose">
-        <ProductModal @dialog-close="dialog.close()" @confirm-product="confirmProduct(temp)" :temp="temp" :is-new="isNew">
+        <ProductModal @dialog-close="dialog.close()" @confirm-product="confirmProduct" :temp-product="tempProduct"
+            :is-new="isNew">
         </ProductModal>
     </dialog>
-    <PaginationComponent :pages="pagination" @change-page="getProducts"></PaginationComponent>
+    <template v-if="products.length">
+        <PaginationComponent :pages="pagination" @change-page="getProducts"></PaginationComponent>
+    </template>
 </template>
 <style lang="postcss">
 td,

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
-const props = defineProps(['temp', 'isNew']);
-const tempProduct = ref(props.temp);
+const props = defineProps(['tempProduct', 'isNew']);
+const tempProduct = ref(props.tempProduct);
 function addNewImages() {
     // 先檢查有無 imagesUrl屬性
     if (!tempProduct.value.imagesUrl) {
@@ -12,8 +12,8 @@ function addNewImages() {
     tempProduct.value.imagesUrl.push("")
 }
 // 父層 temp 變動時，子層 tempProduct 跟著變動
-watch(() => props.temp, () => {
-    tempProduct.value = props.temp
+watch(() => props.tempProduct, () => {
+    tempProduct.value = props.tempProduct
 })
 </script>
 <template>
