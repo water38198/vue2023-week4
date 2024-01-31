@@ -43,12 +43,6 @@ function getProducts(page = 1) {
             pagination.value = res.data.pagination;
         })
 }
-function autoClose(e) {
-    // 點擊 dialog 外圍區域自動關閉
-    if (e.target.nodeName === "DIALOG") {
-        dialog.value.close();
-    }
-}
 function addNewProduct() {
     dialog.value.showModal();
     tempProduct.value = {};
@@ -70,7 +64,7 @@ function confirmProduct(product) {
                 title: `${res.data.message}`,
                 icon: "success"
             })
-            dialog.value.close();
+            dialog.value.closeModal();
             tempProduct.value = {};
             getProducts(pagination.value.current_page || 1);
         }).catch(err => {
@@ -78,7 +72,7 @@ function confirmProduct(product) {
                 icon: "error",
                 target: "dialog",
                 title: "錯誤發生",
-                text: `${err.response.data.message}`
+                text: `${err}`
             })
         })
     } else {
@@ -91,7 +85,7 @@ function confirmProduct(product) {
                     title: `${res.data.message}`,
                     icon: "success",
                 })
-                dialog.value.close();
+                dialog.value.closeModal();
                 tempProduct.value = {};
                 getProducts(pagination.value.current_page || 1);
             }).catch(err => {
@@ -191,11 +185,8 @@ onMounted(() => {
         </table>
     </div>
     <!-- Modal -->
-    <dialog ref="dialog" class="max-w-1140px w-100% border-0 rd p-0 backdrop:backdrop-blur-3" @click="autoClose">
-        <ProductModal @dialog-close="dialog.close()" @confirm-product="confirmProduct" :temp-product="tempProduct"
-            :is-new="isNew">
-        </ProductModal>
-    </dialog>
+    <ProductModal @confirm-product="confirmProduct" :temp-product="tempProduct" :is-new="isNew" ref="dialog">
+    </ProductModal>
     <template v-if="products.length">
         <PaginationComponent :pages="pagination" @change-page="getProducts"></PaginationComponent>
     </template>
