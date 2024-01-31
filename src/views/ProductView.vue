@@ -44,7 +44,7 @@ function getProducts(page = 1) {
         })
 }
 function addNewProduct() {
-    dialog.value.showModal();
+    dialog.value.dialog.showModal();
     tempProduct.value = {};
     isNew.value = true
 }
@@ -54,7 +54,6 @@ function editProduct(product) {
     dialog.value.showModal();
 }
 function confirmProduct(product) {
-    console.log(product)
     // 新增用 post ，修改用 put
     if (isNew.value) {
         axios.post(`${VITE_URL}/v2/api/${VITE_PATH}/admin/product`, {
@@ -64,7 +63,7 @@ function confirmProduct(product) {
                 title: `${res.data.message}`,
                 icon: "success"
             })
-            dialog.value.closeModal();
+            dialog.value.dialog.close();
             tempProduct.value = {};
             getProducts(pagination.value.current_page || 1);
         }).catch(err => {
@@ -85,7 +84,7 @@ function confirmProduct(product) {
                     title: `${res.data.message}`,
                     icon: "success",
                 })
-                dialog.value.closeModal();
+                dialog.value.dialog.close();
                 tempProduct.value = {};
                 getProducts(pagination.value.current_page || 1);
             }).catch(err => {

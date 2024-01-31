@@ -29,7 +29,7 @@ watch(() => props.tempProduct, () => {
     tempProduct.value = props.tempProduct
 })
 defineExpose({
-    showModal, closeModal
+    showModal, closeModal, dialog
 })
 </script>
 <template>
