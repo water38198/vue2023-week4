@@ -65,6 +65,8 @@ watch(() => props.tempProduct, () => {
                             <option value="雙人">雙人</option>
                             <option value="陣營">陣營</option>
                             <option value="家庭">家庭</option>
+                            <option value="合作">合作</option>
+                            <option value="劇情">劇情</option>
                         </datalist>
                     </div>
                     <div class="input-group">
