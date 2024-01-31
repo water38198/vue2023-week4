@@ -9,12 +9,6 @@ function autoClose(e) {
         dialog.value.close();
     }
 }
-function showModal() {
-    dialog.value.showModal();
-}
-function closeModal() {
-    dialog.value.close();
-}
 function addNewImages() {
     // 先檢查有無 imagesUrl屬性
     if (!tempProduct.value.imagesUrl) {
@@ -29,7 +23,7 @@ watch(() => props.tempProduct, () => {
     tempProduct.value = props.tempProduct
 })
 defineExpose({
-    showModal, closeModal, dialog
+    dialog
 })
 </script>
 <template>
