@@ -51,7 +51,7 @@ function addNewProduct() {
 function editProduct(product) {
     tempProduct.value = JSON.parse(JSON.stringify(product));
     isNew.value = false
-    dialog.value.showModal();
+    dialog.value.dialog.showModal();
 }
 function confirmProduct(product) {
     // 新增用 post ，修改用 put
